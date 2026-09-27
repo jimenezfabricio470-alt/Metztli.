@@ -373,61 +373,59 @@ function App() {
 
         <div style={{ backgroundColor: '#B14AED', borderRadius: '24px', padding: '40px 30px', width: '320px', textAlign: 'center', boxShadow: '0 10px 25px rgba(0,0,0,0.2)' }}>
 
-          <div style={{ backgroundColor: '#5B2A86', color: 'white', borderRadius: '12px', padding: '12px 25px', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>
+          <div style={{ backgroundColor: '#5B2A86', color: 'white', borderRadius: '12px', padding: '12px 25px', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '24px', fontWeight: 'bold', marginBottom: '22px' }}>
             METZTLI
             <span style={{ fontSize: '18px' }}>↖</span>
           </div>
 
-          <h2 style={{ margin: '0 0 5px 0', color: '#05060E', fontSize: '22px', fontWeight: '600' }}>Iniciar sesión</h2>
-          <p style={{ margin: '0 0 25px 0', color: '#05060E', fontSize: '14px' }}>Accede a tu cuenta</p>
+          <h2 style={{ margin: '0 0 8px 0', color: '#05060E', fontSize: '22px', fontWeight: '700' }}>Bienvenido</h2>
+          <p style={{ margin: '0 0 28px 0', color: '#3D1F5C', fontSize: '14px', lineHeight: '1.5' }}>
+            Certifica la autenticidad de tu contenido con IA y Stellar.
+          </p>
 
-          <div style={{ textAlign: 'left', marginBottom: '15px' }}>
-            <label style={{ display: 'block', color: '#05060E', fontSize: '12px', marginBottom: '8px', fontWeight: '500' }}>Usuario</label>
-            <input
-              type="text"
-              placeholder="Usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #e0e0e0', boxSizing: 'border-box', backgroundColor: '#fafafa', outline: 'none' }}
-            />
+          <div style={{
+            backgroundColor: 'rgba(5, 6, 14, 0.08)',
+            borderRadius: '18px',
+            padding: '26px 20px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '14px'
+          }}>
+            <div style={{
+              width: '52px',
+              height: '52px',
+              borderRadius: '50%',
+              backgroundColor: '#05060E',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '24px'
+            }}>
+              🔐
+            </div>
+
+            <p style={{ margin: 0, color: '#05060E', fontSize: '13px', fontWeight: '600', letterSpacing: '0.3px' }}>
+              Para empezar, inicia sesión con Pollar
+            </p>
+
+            <button
+              onClick={async () => {
+                try {
+                  await login({ provider: 'google' });
+                } catch (error) {
+                  console.error('Error al iniciar sesión:', error);
+                }
+              }}
+              style={{ width: '100%', padding: '14px', borderRadius: '12px', border: '2px solid #05060E', backgroundColor: '#000000', color: '#ffffff', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s' }}
+            >
+              INICIAR SESIÓN CON POLLAR
+            </button>
+
+            <p style={{ margin: 0, color: '#3D1F5C', fontSize: '11px', lineHeight: '1.5' }}>
+              Pollar es una smart wallet de Stellar: tu identidad queda ligada de forma nativa al mismo ecosistema donde se certifica tu contenido.
+            </p>
           </div>
-
-          <div style={{ textAlign: 'left', marginBottom: '25px' }}>
-            <label style={{ display: 'block', color: '#05060E', fontSize: '12px', marginBottom: '8px', fontWeight: '500' }}>Contraseña</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #e0e0e0', boxSizing: 'border-box', backgroundColor: '#fafafa', outline: 'none' }}
-            />
-          </div>
-
-          <button
-            onClick={handleLocalLogin}
-            style={{ width: '100%', padding: '14px', borderRadius: '12px', border: 'none', backgroundColor: '#5B2A86', color: 'white', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', marginBottom: '20px' }}
-          >
-            Entrar
-          </button>
-
-          <div style={{ display: 'flex', alignItems: 'center', margin: '20px 0', color: '#05060E', fontSize: '12px' }}>
-            <div style={{ flex: 1, height: '1px', backgroundColor: '#eeeeee' }}></div>
-            <span style={{ margin: '0 10px' }}>O INICIA CON WEB3</span>
-            <div style={{ flex: 1, height: '1px', backgroundColor: '#eeeeee' }}></div>
-          </div>
-
-          <button
-            onClick={async () => {
-              try {
-                await login({ provider: 'google' });
-              } catch (error) {
-                console.error('Error al iniciar sesión:', error);
-              }
-            }}
-            style={{ width: '100%', padding: '14px', borderRadius: '12px', border: '2px solid #05060E', backgroundColor: '#000000', color: '#ffffff', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s' }}
-          >
-            INICIAR SESIÓN CON POLLAR
-          </button>
 
         </div>
       </div>
