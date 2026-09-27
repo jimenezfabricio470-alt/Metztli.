@@ -32,15 +32,14 @@ async def manejar_error_de_validacion(request: Request, exc: RequestValidationEr
         content={"detail": " | ".join(mensajes) or "Los datos enviados no son válidos."},
     )
 
-# OJO: los orígenes van SIN "/" al final, si no, el navegador los rechaza
-# aunque se vean "iguales". Agregamos también localhost para poder
-# probar en su compu con npm run dev.
+# OJO: en vez de una sola URL "congelada" de Vercel (que cambia con cada
+# despliegue nuevo), usamos un patrón que acepta CUALQUIER URL de Vercel de
+# este proyecto (la de producción, las de preview, las de cada commit). Así
+# no hay que tocar esto de nuevo cada vez que hagan push.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://metztli-h3ixu341e-jimenezfabricio470-alt.vercel.app",
-        "http://localhost:5173","https://metztli-gamma.vercel.app/",
-    ],
+    allow_origins=["http://localhost:5173"],
+    allow_origin_regex=r"^https://metztli.*\.vercel\.app$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
