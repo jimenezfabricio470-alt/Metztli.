@@ -38,7 +38,7 @@ async def manejar_error_de_validacion(request: Request, exc: RequestValidationEr
 # no hay que tocar esto de nuevo cada vez que hagan push.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_origin_regex=r"^https://metztli.*\.vercel\.app$",
     allow_credentials=True,
     allow_methods=["*"],
