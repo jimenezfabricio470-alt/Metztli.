@@ -1,0 +1,20 @@
+/* Resetea los márgenes y rellenos de todos los elementos */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fuerza a la página a usar el 100% de la pantalla sin límites */
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  /* Mantenemos un fondo negro base para cuando entres a tu app principal */
+  background-color: #000000; 
+}
+
+/* Opcional: elimina configuraciones de Vite que rompen el diseño a pantalla completa */
+#root {
+  max-width: none;
+  text-align: left;
+}
