@@ -39,7 +39,7 @@ async def manejar_error_de_validacion(request: Request, exc: RequestValidationEr
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_origin_regex=r"^https://metztli.*\.vercel\.app$",
+    #allow_origin_regex=r"^https://metztli.*\.vercel\.app$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
