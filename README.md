@@ -4,8 +4,8 @@
 
 Metztli certifica la autenticidad de un contenido (texto o imagen): una IA lo
 analiza y determina si parece auténtico, generado por IA, manipulado, o si no
-hay evidencia suficiente para concluir. Cada resultado queda sellado de forma
-pública e inmutable en la blockchain de Stellar, con fecha y hora, para que
+hay evidencia suficiente para concluir. Cada certificación registra en Stellar
+el hash del contenido analizado, con fecha y hora, para que
 cualquiera pueda verificarlo de forma independiente, sin tener que confiar
 únicamente en la palabra de la plataforma.
 
