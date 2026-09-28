@@ -3,6 +3,7 @@ import os
 import requests
 from dotenv import load_dotenv
 from stellar_sdk import Keypair, Server, TransactionBuilder, Network, HashMemo, Asset
+from stellar_sdk.exceptions import NotFoundError
 
 load_dotenv()
 
@@ -10,14 +11,21 @@ load_dotenv()
 # vez que el servidor arrancaba. Ahora cargamos SIEMPRE la misma,
 # guardada en STELLAR_SECRET_KEY (generada una vez con
 # generar_cuenta_stellar.py).
-secreto = os.getenv("STELLAR_SECRET_KEY")
-if not secreto:
+secreto = (os.getenv("STELLAR_SECRET_KEY") or "").strip().strip('"').strip("'")
+if not secreto or "pega_tu" in secreto:
     raise ValueError(
-        "Falta configurar STELLAR_SECRET_KEY en el archivo .env. "
-        "Corran generar_cuenta_stellar.py una sola vez para crear una."
+        "Falta configurar STELLAR_SECRET_KEY en backend/.env. "
+        "Desde la carpeta backend/ corre `python generar_cuenta_stellar.py` "
+        "(crea y fondea una cuenta de testnet) o pega tu propia llave secreta (S...)."
     )
 
-keypair = Keypair.from_secret(secreto)
+try:
+    keypair = Keypair.from_secret(secreto)
+except Exception:
+    raise ValueError(
+        "STELLAR_SECRET_KEY no es una llave secreta válida de Stellar "
+        "(debe empezar con S y tener 56 caracteres)."
+    )
 
 server = Server("https://horizon-testnet.stellar.org")
 
@@ -48,7 +56,14 @@ def registrar_hash_en_stellar(texto=None, cuenta_usuario=None, imagen_bytes=None
     huella = _calcular_huella(texto=texto, imagen_bytes=imagen_bytes)
 
     # 2. Cargar la cuenta del servidor como origen (tiene la llave para firmar y pagar el fee)
-    source_account = server.load_account(keypair.public_key)
+    try:
+        source_account = server.load_account(keypair.public_key)
+    except NotFoundError:
+        raise RuntimeError(
+            f"La cuenta {keypair.public_key} no existe en testnet (no está fondeada). "
+            "Fondéala con `python generar_cuenta_stellar.py` o en "
+            "https://lab.stellar.org (Account → Fund Account, red Testnet)."
+        )
 
     # 3. Decidir a quién va dirigida la evidencia
     if cuenta_usuario:
