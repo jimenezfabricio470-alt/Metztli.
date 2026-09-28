@@ -6,7 +6,7 @@ import { PollarProvider } from '@pollar/react';
 
 // 1. Agrupamos las credenciales en un objeto
 const configuracionCliente = {
-  apiKey: "pub_testnet_cf35b95744c6a761874521c1a3c3b99a",
+  apiKey: "pub_testnet_38ae6784c0c19a378d5e58487e702d98",
   network: "testnet"
 };
 
