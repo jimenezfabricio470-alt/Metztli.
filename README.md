@@ -71,13 +71,32 @@ implementación final son del equipo.
 
 ---
 
+## Nota: llaves propias (solo si vas a correr el proyecto en tu compu)
+
+> **¿Solo quieres probarlo?** Usa la app en vivo: https://metztli-8p1z.vercel.app. No necesitas ninguna llave.
+
+Si clonas el repositorio para correrlo localmente, necesitas tus **propias llaves**.
+Las del equipo no están en el código y nunca se suben a GitHub (`.env` está en `.gitignore`).
+
+| Llave | Para qué sirve | Dónde se obtiene |
+|---|---|---|
+| `GEMINI_API_KEY` | Análisis de autenticidad con IA (Google Gemini) | Gratis en https://aistudio.google.com/app/apikey |
+| `STELLAR_SECRET_KEY` | Cuenta de Stellar **testnet** que firma y paga las transacciones de los certificados | Se genera con `python generar_cuenta_stellar.py` (ver paso 3). También puedes usar la tuya: `python generar_cuenta_stellar.py --secret S...` |
+| Pollar (login) | Inicio de sesión con smart wallet | Ya viene incluida en el frontend (llave pública de testnet). No tienes que configurar nada |
+
+**Sobre la llave de Stellar:**
+- Stellar no usa "API keys": tu cuenta es un par de llaves. La **pública** (`G...`) se puede compartir; la **secreta** (`S...`) es la que va en `.env` y nunca se comparte.
+- Es red de **pruebas**, no maneja dinero real. Si prefieres hacerlo a mano, entra a https://lab.stellar.org, ve a *Account → Create Account Keypair*, genera el par y pulsa *Fund account with Friendbot*.
+- La testnet se reinicia periódicamente. Si un día deja de funcionar, vuelve a correr `python generar_cuenta_stellar.py --force`.
+- Los certificados que hagas en tu instalación saldrán de **tu** cuenta, no de la de Metztli, y los verás en `https://stellar.expert/explorer/testnet/account/TU_LLAVE_PUBLICA`.
+
 ## Pasos para Ejecutar el Proyecto
 
 1- Clonar el repositorio
 
 ```
-git clone https://github.com/jimenezfabricio470-alt/Metztli.git
-cd proyecto-metztli
+git clone https://github.com/jimenezfabricio470-alt/Metztli..git
+cd Metztli
 ```
 
 2- Configurar el Backend
@@ -89,17 +108,21 @@ pip install -r requirements.txt
 
 3- Configurar las variables de entorno. Busca el archivo `.env.example`
 (está en `backend/`, un nivel arriba de `backend/app`), duplícalo y
-renómbralo a exactamente `.env`. Abre ese nuevo archivo `.env` y pega tus
-propias claves:
+renómbralo a exactamente `.env`. Ábrelo y pega tu clave de Gemini
+(se obtiene gratis en https://aistudio.google.com/app/apikey):
 
 ```
 GEMINI_API_KEY="tu_api_key_de_gemini"
-STELLAR_SECRET_KEY="tu_llave_secreta_de_stellar"
 ```
 
-`GEMINI_API_KEY` se obtiene gratis en https://aistudio.google.com/app/apikey.
-`STELLAR_SECRET_KEY` se genera una sola vez corriendo
-`generar_cuenta_stellar.py` — sin esta llave, el backend no arranca.
+Luego genera tu cuenta de Stellar de pruebas. Este comando la crea, la fondea
+con XLM de prueba y escribe `STELLAR_SECRET_KEY` en tu `.env` automáticamente:
+
+```
+cd ..
+python generar_cuenta_stellar.py
+cd app
+```
 
 4- Iniciar el Servidor Backend
 
