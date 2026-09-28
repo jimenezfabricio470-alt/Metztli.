@@ -95,7 +95,7 @@ Las del equipo no están en el código y nunca se suben a GitHub (`.env` está e
 1- Clonar el repositorio
 
 ```
-git clone https://github.com/jimenezfabricio470-alt/Metztli..git
+git clone https://github.com/jimenezfabricio470-alt/Metztli..git Metztli
 cd Metztli
 ```
 
